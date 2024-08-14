@@ -10,6 +10,9 @@
 // LIBRERIAS EXTERNAS
 #include <X11/XKBlib.h> //-lX11
 
+// PARA COMPILAR EL PROGRAMA:
+// gcc main.c -o main -lX11
+
 // FUNCION PARA OBTENER EL DEVICE DEL TECLADO
 char *getDevice()
 {
