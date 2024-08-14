@@ -19,6 +19,7 @@
 
 // PARA COMPILAR EL PROGRAMA:
 // gcc main.c -o main -lX11
+// gcc main.c -o main `pkg-config --cflags --libs cairo x11`
 
 // FUNCION PARA OBTENER EL DEVICE DEL TECLADO
 char *getDevice()
