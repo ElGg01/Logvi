@@ -15,6 +15,8 @@
 #include <cairo.h>
 #include <cairo-xlib.h>
 
+// sudo apt install libcairo2-dev
+
 // PARA COMPILAR EL PROGRAMA:
 // gcc main.c -o main -lX11
 
