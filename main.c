@@ -196,6 +196,8 @@ char *getCharacter(int code)
         return "-";
     case KEY_EQUAL:
         return "=";
+    case KEY_SLASH:
+        return "/";
     case KEY_LEFTSHIFT:
         return " [LEFTSHIFT] ";
     case KEY_RIGHTSHIFT:
@@ -222,8 +224,24 @@ char *getCharacter(int code)
         return " [TAB] ";
     case KEY_CAPSLOCK:
         return " [CAPSLOCK] ";
+    case KEY_NUMLOCK:
+        return " [NUMLOCK] ";
     case KEY_BACKSPACE:
         return " [BACKSPACE] ";
+    case KEY_END:
+        return " [END] ";
+    case KEY_PAGEDOWN:
+        return " [PAGEDOWN] ";
+    case KEY_INSERT:
+        return " [INSERT] ";
+    case KEY_DELETE:
+        return " [DELETE] ";
+    case KEY_PAUSE:
+        return " [PAUSE] ";
+    case KEY_HOMEPAGE:
+        return " [HOMEPAGE] ";
+    case KEY_PRINT:
+        return " [PRINT] ";
     case KEY_F1:
         return " [F1] ";
     case KEY_F2:
@@ -248,6 +266,26 @@ char *getCharacter(int code)
         return " [F11] ";
     case KEY_F12:
         return " [F12] ";
+    case KEY_1:
+        return "!";
+    case KEY_2:
+        return "@";
+    case KEY_3:
+        return "#";
+    case KEY_4:
+        return "$";
+    case KEY_5:
+        return "%";
+    case KEY_6:
+        return "^";
+    case KEY_7:
+        return "&";
+    case KEY_8:
+        return "*";
+    case KEY_9:
+        return "(";
+    case KEY_0:
+        return ")";
 
     // TECLADO NUMERICO
     case KEY_KPENTER:
