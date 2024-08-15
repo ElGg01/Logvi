@@ -266,26 +266,6 @@ char *getCharacter(int code)
         return " [F11] ";
     case KEY_F12:
         return " [F12] ";
-    case KEY_1:
-        return "!";
-    case KEY_2:
-        return "@";
-    case KEY_3:
-        return "#";
-    case KEY_4:
-        return "$";
-    case KEY_5:
-        return "%";
-    case KEY_6:
-        return "^";
-    case KEY_7:
-        return "&";
-    case KEY_8:
-        return "*";
-    case KEY_9:
-        return "(";
-    case KEY_0:
-        return ")";
 
     // TECLADO NUMERICO
     case KEY_KPENTER:
