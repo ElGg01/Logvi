@@ -97,9 +97,7 @@ Dentro de main.c en la función **_send to server_** modificar las siguientes va
   char *password = "parrot";
 ```
 
-Si queremos cambiar la ruta donde se creará el archivo .txt debemos modificar la variable
-
-Una vez teniendo el archivo **main.c** ejecutar el siguiente comando para compilarlo:
+Una vez teniendo el archivo **main.c** configurado ejecutar el siguiente comando para compilarlo:
 
 ```bash
   gcc main.c -o main `pkg-config --cflags --libs cairo x11`
