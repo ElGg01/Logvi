@@ -184,8 +184,6 @@ Entonces podemos dividir los casos de uso en 3 partes:
 | 4.3  |       | Se intenta enviar la carpeta con su contenido al servidor      | No se envia el archivo.txt |
 | 4.4  |       | El programa se detiene por 3600 segundos (1 hora)              |                            |
 
-<p style="display: flex; align-items: center; gap: 10px;"><img src="logo.jpg" width="32px"/>Hecho por Julio NG</p>
-
 ```
 
                                   *(%@@@@@*#@@@,..
@@ -203,5 +201,5 @@ Entonces podemos dividir los casos de uso en 3 partes:
     *#&@@@@..       *#@@@@@@@@@@@@@@&..
       *#@@@@@@@*#@@@@@@@@@@@@@@@@@@@..
         *#@@@@@@@@@@@@@@@@@@&,.
-          *#@@@@@@@@..
+          *#@@@@@@@@..                   Hecho por Julio NG
 ```
