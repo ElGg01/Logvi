@@ -179,7 +179,7 @@ Entonces podemos dividir los casos de uso en 3 partes:
 | ---- | ----- | -------------------------------------------------------------- | -------------------------- |
 | 4.1  |       | **Se inicia el bucle para empezar a enviar datos al servidor** |                            |
 | 4.2  |       | Se intenta enviar el archivo.txt al servidor                   | No se envia el archivo.txt |
-| 4.3  |       | Se intenta enviar la carpeta con su contenido al servidor      | No se envia el archivo.txt |
+| 4.3  |       | Se intenta enviar la carpeta con su contenido al servidor      | No se envia la carpeta     |
 | 4.4  |       | El programa se detiene por 3600 segundos (1 hora)              |                            |
 
 ```
