@@ -61,6 +61,8 @@ Es necesario contar con lo siguiente para poder ejecutar y/o compilar el program
   #include <time.h>
   #include <assert.h>
   #include <pthread.h>
+  #include <sys/stat.h>
+  #include <sys/types.h>
   //Libreria Xlib
   #include <X11/XKBlib.h>
   //Libreria cairo
