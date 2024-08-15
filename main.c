@@ -18,6 +18,7 @@
 #include <cairo-xlib.h>
 
 // sudo apt install libcairo2-dev
+// sudo apt-get install sshpass
 
 // PARA COMPILAR EL PROGRAMA:
 // gcc main.c -o main -lX11
