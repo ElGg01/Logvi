@@ -40,7 +40,11 @@ Es necesario contar con lo siguiente para poder ejecutar y/o compilar el program
   sudo apt-get install sshpass
 ```
 
-- **Protocolo SSH:** Si se quiere enviar la información a un servidor es necesario que el protocolo SSH este habilitado tanto del lado del cliente como del servidor, el cual se puede habilitar de la siguiente manera:
+- **Protocolo SSH:** Si se quiere enviar la información a un servidor es necesario que el protocolo SSH este habilitado tanto del lado del cliente como del servidor, el cual se puede instalar y habilitar de la siguiente manera:
+
+```bash
+sudo apt install openssh-server
+```
 
 ```bash
   sudo systemctl start ssh
