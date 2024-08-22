@@ -628,6 +628,7 @@ void *sendToServer()
         snprintf(command, sizeof(command), "sshpass -p '%s' scp -o StrictHostKeyChecking=no %s %s@%s:%s", password, file_path, server_user, server_ip, remote_path);
 
         // Ejecuta el comando
+        sleep(1);
         int result = system(command);
 
         if (result == 0)
@@ -645,6 +646,7 @@ void *sendToServer()
                  password, folder_path, server_user, server_ip, remote_path);
 
         // Ejecuta el comando para enviar la carpeta
+        sleep(1);
         int result_folder = system(command_folder);
 
         if (result_folder == 0)
