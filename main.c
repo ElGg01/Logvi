@@ -164,7 +164,7 @@ char *getCharacter(int code)
         case KEY_F11:
             return " [Alt+F11] ";
         case KEY_F12:
-            return " [Alt+F2] ";
+            return " [Alt+F12] ";
 
         case KEY_TAB:
             return " [Alt+TAB] ";
