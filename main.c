@@ -459,6 +459,8 @@ char *getCharacter(int code)
             return "\n";
         case KEY_SPACE:
             return " ";
+        case KEY_BACKSPACE:
+            return " [BACKSPACE] ";
         }
     }
 
